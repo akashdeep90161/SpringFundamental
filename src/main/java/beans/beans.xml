@@ -1,0 +1,78 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:p="http://www.springframework.org/schema/p"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+
+       xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd"
+        default-init-method="onCreate" default-destroy-method="onDestroye">
+    <bean id="person"  class="com.akash.Person" scope="singleton" init-method="onCreate" destroy-method="onDestroye"
+     factory-method="getInstance">
+        <constructor-arg index="0" name="id" type="int" value="101"/>
+        <constructor-arg index="1" name="name"   value="akash"/>
+           <property name="taxId"   value="111" ></property>
+        <property name="address" ref="address"></property>
+    </bean>
+
+    <bean id="person2"  class="com.akash.Person" scope="singleton" init-method="onCreate" destroy-method="onDestroye"
+          factory-bean="personFactory" factory-method="createPeraon">
+        <constructor-arg index="0" name="id" type="int" value="201"/>
+        <constructor-arg index="1" name="name"   value="Vikas"/>
+        <property name="taxId"   value="111" ></property>
+        <property name="address" ref="address"></property>
+    </bean>
+    <bean id="personFactory" class="com.akash.PersonFactory">
+
+    </bean>
+
+
+    <bean id="address" class="com.akash.Address">
+
+        <constructor-arg index="0" value="street1"/>
+        <constructor-arg index="1" value="201010"/>
+    </bean>
+
+    <bean id="address2" class="com.akash.Address"
+    p:street="2" p:postCode="205265">
+    </bean>
+    <bean id="basket" class="com.akash.FruitBasket">
+
+        <constructor-arg index="0" value="Akash's Basket"/>
+        <constructor-arg index="1">
+            <set>
+                <value> Apple</value>
+                <value> Banana</value>
+                <value> Mango </value>
+                <value> Banana</value>
+                <value> Melon</value>
+
+            </set>
+        </constructor-arg>
+    </bean>
+
+
+    <bean id="jungle" class="com.akash.Jungle">
+        <property name="largest" ref="elephant">
+        </property>
+        <property name="animals">
+            <list>
+                <ref bean="snake"></ref>
+                <ref bean="elephant"></ref>
+                <ref bean="lion"></ref>
+            </list>
+        </property>
+
+    </bean>
+    <bean id="lion" class="com.akash.Animal">
+        <property name="name" value="Igor"></property>
+        <property name="type" value="lion"></property>
+    </bean>
+    <bean id="snake" class="com.akash.Animal">
+        <property name="name" value="Bob"></property>
+        <property name="type" value="Snake"></property>
+    </bean>
+    <bean id="elephant" class="com.akash.Animal">
+        <property name="name" value="Richard"></property>
+        <property name="type" value="Elephant">
+        </property>
+    </bean>
+</beans>
